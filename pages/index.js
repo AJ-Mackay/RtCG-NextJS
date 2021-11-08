@@ -1,6 +1,4 @@
 // our-domain.com/
-import { useEffect, useState } from 'react';
-
 import MeetupList from '../components/meetups/MeetupList';
 
 const DUMMY_MEETUPS = [
@@ -8,29 +6,32 @@ const DUMMY_MEETUPS = [
     id: 'm1',
     title: 'A First Meetup',
     image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/%CE%A3%CE%B1%CE%B3%CF%81%CE%AC%CE%B4%CE%B1_%CE%A6%CE%B1%CE%BC%CE%AF%CE%BB%CE%B9%CE%B1_2941.jpg/1386px-%CE%A3%CE%B1%CE%B3%CF%81%CE%AC%CE%B4%CE%B1_%CE%A6%CE%B1%CE%BC%CE%AF%CE%BB%CE%B9%CE%B1_2941.jpg',
-    address: 'Carrer de Mallorca, Barcelona',
+      'https://upload.wikimedia.org/wikipedia/commons/4/41/BlogHer_08_-_Sesame_Street_Suite_%282682321763%29.jpg',
+    address: '123 Sesame Street, NYC',
     description: 'This is a first meetup!',
   },
   {
     id: 'm2',
     title: 'A Second Meetup',
     image:
-      'https://upload.wikimedia.org/wikipedia/commons/4/41/BlogHer_08_-_Sesame_Street_Suite_%282682321763%29.jpg',
-    address: '123 Sesame Street, NYC',
+      'https://cdn.cloudflare.steamstatic.com/steam/apps/930500/capsule_616x353.jpg',
+    address:
+      'Uncharted Backwaters, Unfashionable End, Western Spiral Arm, H2G2',
     description: 'This is a second meetup!',
   },
 ];
 
-function HomePage() {
-  const [loadedMeetups, setLoadedMeetups] = useState([]);
+function HomePage(props) {
+  return <MeetupList meetups={props.meetups} />;
+}
 
-  useEffect(() => {
-    //send a http request and fetch data
-    setLoadedMeetups(DUMMY_MEETUPS);
-  }, []);
-
-  return <MeetupList meetups={loadedMeetups} />;
+export async function getStaticProps() {
+  // fetch data from an API
+  return {
+    props: {
+      meetups: DUMMY_MEETUPS,
+    },
+  };
 }
 
 export default HomePage;
